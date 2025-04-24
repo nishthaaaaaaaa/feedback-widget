@@ -36,12 +36,10 @@
                         <div class="mb-3">
                             <label for="name" class="form-label">Name</label>
                             <input type="text" class="form-control" name="name" id="name" value="{{ old('name') }}">
-                            @error('name') <small class="text-danger">{{ $message }}</small> @enderror
                         </div>
                         <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
                             <input type="email" class="form-control" name="email" id="email" value="{{ old('name') }}">
-                            @error('email') <small class="text-danger">{{ $message }}</small> @enderror
                         </div>
 
                         <div class="mb-3">
@@ -63,13 +61,11 @@
                                 <label for="star5" title="5 stars" class="star">&#9733;</label>
                             </div>
                         </div>
-                        @error('rating') <small class="text-danger">{{ $message }}</small> @enderror
 
                         <div class="mb-3">
                             <label for="comment" class="form-label">Comment</label>
                             <textarea class="form-control" name="comment" id="comment" rows="4"
                                 value="{{ old('comment') }}"></textarea>
-                            @error('comment') <small class="text-danger">{{ $message }}</small> @enderror
                         </div>
                         <button type="submit" class="btn btn-secondary">Submit</button>
                     </form>
@@ -129,6 +125,41 @@
 
         $('#form').submit(function (e) {
             e.preventDefault();
+            let name = $('#name').val().trim();
+            let email = $('#email').val().trim();
+            let rating = $('input[name="rating"]:checked').val();
+            let comment = $('#comment').val().trim();
+
+            let isValid = true;
+            if (name === '') {
+                $('#name').addClass('is-invalid')
+                    .after('<p class="text-danger">Name cannot be empty</p>');
+                isValid = false;
+            }
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (email === '') {
+                $('#email').addClass('is-invalid')
+                    .after('<p class="text-danger">Email cannot be empty</p>');
+                isValid = false;
+            } else if (!emailPattern.test(email)) {
+                $('#email').addClass('is-invalid')
+                    .after('<p class="text-danger">Enter a valid email</p>');
+                isValid = false;
+            }
+            if (!rating) {
+                $('input[name="rating"]').last().after('<p class="text-danger d-block">Please select a rating</p>');
+                isValid = false;
+            }
+            if (comment === '') {
+                $('#comment').addClass('is-invalid')
+                    .after('<p class="text-danger">Comment cannot be empty</p>');
+                isValid = false;
+            }
+            if (!isValid) {
+                return;
+            }
+
+
             const formData = new FormData(this);
 
             $.ajax({
