@@ -9,13 +9,24 @@
             {{ __('Dashboard') }}
         </h2>
     </x-slot>
-
+<style>
+    .btn:hover{
+        background-color: rgba(0, 0, 0, 0.288);
+        font-size: 18px;
+        transition: 0.5s;
+    }
+    tr:hover{
+        font-weight: 900;
+        font-size: 18px;
+        transition: 0.5s;
+    }
+    </style>
     @if (Auth::user()->email == 'admin@gmail.com' && Auth::user()->name == 'admin')
         <div class="container my-4">
             {{-- <h1 class="text-center mb-4">Hello Admin</h1> --}}
             <div class="d-flex justify-between">
                 <a href="{{ route('feedback.download') }}" id='export' type="button"
-                        class="btn btn-outline-secondary" style="height: 44px; width: 150px; border-radius: 9px;">Export Data</a>
+                        class="btn btn-outline-secondary" style="height: 44px; width: 150px; border-radius: 4px;">Export Data</a>
                 <form id="filter">
                     <select id="feedback" style="height: 44px; width: 200px; border-radius: 9px;">
                         <option value=""></option>
@@ -26,9 +37,9 @@
                         style="height: 44px; width: 100px; border-radius: 9px;">Filter</button>
                 </form>
             </div>
-                <div>
+                <div class="d-flex justify-center">
 
-                    <table class="table table-bordered table-hover mt-4 mb-4" id="data">
+                    <table class="table table-bordered m-4" id="data" style="width: 90%; border-radius: 10px; overflow: hidden;">
                         <thead class="table-secondary text-center">
                             <tr>
                                 <th>Guests</th>

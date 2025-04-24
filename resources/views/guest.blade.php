@@ -1,36 +1,49 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<style>
+    .btn:hover {
+        background-color: rgba(0, 0, 0, 0.288);
+        border: none;
+        font-size: 18px;
+        transition: 0.5s;
+    }
+
+    body {
+        background: linear-gradient(to bottom, #fff, #6c6c6c);
+    }
+
+    label {
+        color: #fff;
+    }
+
+    #form-model {
+        background: #c6c6c684
+    }
+</style>
 <div class="py-12">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="overflow-hidden sm:rounded-lg">
-            <div class="d-flex justify-content-end" style="margin: 40px;">
+            <div class="d-flex justify-content-between" style="margin: 40px;">
                 @if(session('success'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         {{ session('success') }}
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 @endif
-                <a class="btn btn-secondary m-2" href="javascript:void(0)" id="open">Add your feedback</a>
-                <a class="btn btn-secondary m-2" href="{{route('register')}}" id="open">Register</a>
-                <a class="btn btn-secondary m-2" href="{{route('login')}}" id="open">Login</a>
+                <div>
+                    <a class="btn btn-secondary m-2" href="javascript:void(0)" id="open">Add your feedback</a>
+                </div>
+                <div>
+                    <a class="btn btn-secondary m-2" href="{{route('register')}}" id="open">Register</a>
+                    <a class="btn btn-secondary m-2" href="{{route('login')}}" id="open">Login</a>
+                </div>
             </div>
             <div id="form-model" class=" bg-secondary bg-opacity-50" style="display: none;">
-                <!-- Modal Content -->
                 <div class="modal-content">
                     <div class="modal-header">
-                        <!-- Close Button (Cross) -->
                         <button type="button" class="btn-close" aria-label="Close" id="close"></button>
                     </div>
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
                     <form id="form" method="POST" class="container mt-5">
                         @csrf
                         <div class="mb-3">
@@ -67,7 +80,7 @@
                             <textarea class="form-control" name="comment" id="comment" rows="4"
                                 value="{{ old('comment') }}"></textarea>
                         </div>
-                        <button type="submit" class="btn btn-secondary">Submit</button>
+                        <button type="submit" class="btn btn-light text-dark">Submit</button>
                     </form>
                 </div>
             </div>
